@@ -1,0 +1,133 @@
+== Dove prelevare una immagine Ubuntu 8.04 ==
+----
+Ho trovato comodo prendere una immagine Ubuntu 8.04 da questo sito:
+[http://jars.de/english/ubuntu-804-vmware-image-download-english#more-163 Ubuntu image]
+Dalla stessa pagine è possibile andare a scaricare il player di VMWare! 
+
+== Aggiornamento del sistema ==
+----
+Una volta avviato, bisogna aggiornare il sistema con le ultime versione dei programmi.
+Io ho anche creato un nuovo utente: embedded, ed ho cancellato quello originale della distribuzione.
+
+== I passi da seguire... ==
+----
+A questo punto ho seguito questa procedura, presa da varie sorgenti in Internet, ma soprattutto dalle pagine che riguardano la [http://beagleboard.org BeagleBoard]
+
+  # aggiornamenti con apt-get
+{{{
+sudo apt-get update
+sudo apt-get upgrade
+}}}
+
+  # ho poi aggiunto altri pacchetti...
+{{{
+sudo apt-get install ccache sed wget cvs subversion git-core coreutils
+unzip texi2html texinfo libsdl1.2-dev \
+docbook-utils gawk help2man diffstat gtk-doc-tools file g++
+python-psyco minicom build-essential \
+libncurses5-dev python-dev python-pysqlite2
+}}}
+
+# I change the default shell
+sudo dpkg-reconfigure dash
+#and select no
+
+# And some system parameter...
+sudo vi /etc/sysctl.conf
+# added this lines
+vm.vdso_enabled = 0
+vm.mmap_min_addr = 0
+
+sudo sysctl  -p
+
+# My user is embedded so under home there is the embedded dir. I create the mini2440 and oe directory...
+cd; cd mini2440/oe
+# then I "git" from the repository...
+git clone git://repo.or.cz/openembedded/mini2440.git
+
+# I add this line at the end of the $HOME/.bashrc file:
+export PATH=/home/embedded/mini2440/oe/mini2440/bitbake/bin/:$PATH
+# opening a new console the PATH variable now is:
+echo $PATH
+/home/embedded/mini2440/oe/mini2440/bitbake/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+# I create this new local.conf file:
+cat > /home/embedded/mini2440/oe/mini2440/conf/local.conf <<_EOF
+DISTRO = "angstrom-2008.1"
+BBPATH = "/home/embedded/mini2440/oe/mini2440/:/home/embedded/mini2440/oe/mini2440/conf"
+BBFILES = "/home/embedded/mini2440/oe/mini2440/recipes/*/*.bb"
+TMPDIR = "/home/embedded/mini2440/oe/mini2440/tmp"
+IMAGE_FSTYPES = "jffs2 ext3 tar"
+MACHINE = "mini2440"
+ENABLE_BINARY_LOCALE_GENERATION = "0"
+_EOF
+
+# export this two var before to run bitbake...
+export BBPATH="/home/embedded/mini2440/oe/mini2440/:/home/embedded/mini2440/oe/mini2440/conf"
+export BBFILES="/home/embedded/mini2440/oe/mini2440/recipes/*/*.bb"
+cd /home/embedded/mini2440/oe/mini2440/
+./bitbake/bin/bitbake console-image
+
+# The resulting images will be here:
+/home/embedded/mini2440/oe/mini2440/tmp/deploy/glibc/images/mini2440
+
+# Is it possible to compile a mini2440-console too. But in this case I erase the "esekeyd" package from
+# the file /home/embedded/oe/mini2440/recipes/images/mini2440-image.bb
+# from the section DEPENDS and IMAGE_INSTALL. Then run:
+export BBPATH="/home/embedded/mini2440/oe/mini2440/:/home/embedded/mini2440/oe/mini2440/conf"
+export BBFILES="/home/embedded/mini2440/oe/mini2440/recipes/*/*.bb"
+cd /home/embedded/mini2440/oe/mini2440/
+./bitbake/bin/bitbake mini2440-console
+
+# It's possible to use the resulting images with qemu.
+# Before this, put inside the folder /home/embedded/mini2440/mini2440/mini2440 the u-boot.bin files and
+# inside /tftproot the uImage kernel image.
+#
+# I put qemu inside the /home/embedded/mini2440 directory. The git process create a new mini2440 folder.
+# So I copy the resulting image: Angstrom-mini2440-image-glibc-ipk-2009.X-test-20090405-mini2440.rootfs.ext3
+# inside the folder: /home/embedded/mini2440/mini2440/disk and then I run:
+cd /home/embedded/mini2440/mini2440/
+sudo mini2440/mini2440_start.sh -sd ./disk/Angstrom-mini2440-image-glibc-ipk-2009.X-test-20090405-mini2440.rootfs.ext3
+
+# this is the output:
+Starting in mini2440
+mini2440/../arm-softmmu/qemu-system-arm -M mini2440 -sd
+disk/Angstrom-mini2440-image-glibc-ipk-2009.X-test-20090325-mini2440.rootfs.ext3
+-drive file=mini2440/mini2440_snapshots.img,snapshot=on -serial stdio
+-kernel /tftpboot/uImage -mtdblock mini2440/mini2440_nand.bin -show-cursor
+-usb -usbdevice keyboard -usbdevice mouse -net nic,vlan=0 -net
+tap,vlan=0,ifname=tap0 -monitor telnet::5555,server,nowait
+DM9000: INIT QEMU MAC : 52:54:00:12:34:56
+mini2440_reset: loaded default u-boot (size 38c00)
+mini2440_reset: loaded /tftpboot/uImage (size 1d5e00)
+
+
+U-Boot 1.3.2-moko12 (Mar 24 2009 - 02:33:38)
+
+I2C:   ready
+DRAM:  64 MB
+Flash:  2 MB
+NAND:  64 MiB
+*** Warning - bad CRC or NAND, using default environment
+
+USB:   S3C2410 USB Deviced
+In:    serial
+Out:   serial
+Err:   serial
+MAC: 08:08:11:18:12:27
+Hit any key to stop autoboot:  0
+MINI2440 #
+
+# at the prompt execute:
+setenv bootargs root=/dev/mmcblk0 rootfstype=ext3 console=ttySAC0,115200
+bootm
+
+# Linux will run...
+
+# You can download this image: http://www.andahammer.com/Downloads/mini2440_2_6_29_rc5_nand_opie.bin.gz
+# and put the file inside /home/embedded/mini2440/mini2440/mini2440/
+# and then run qemu as:
+sudo mini2440/mini2440_start.sh -mtdblock mini2440/mini2440_2_6_29_rc5_nand_opie.bin
+
+# In this case qemu will run the OPIE splashscreen too.
+
