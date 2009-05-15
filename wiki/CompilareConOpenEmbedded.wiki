@@ -1,4 +1,4 @@
-== Utilizzo di OpenEmbedded per costruire una immagine ==
+== Utilizzo di Open Embedded per costruire una immagine ==
 ----
   * In Ubuntu ho creato l'utente embedded e sotto la sua home ho creato la dir *mini2440* e sotto ancora la dir *oe*
 {{{
