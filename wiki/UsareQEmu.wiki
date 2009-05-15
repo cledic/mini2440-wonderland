@@ -1,4 +1,4 @@
-== Usare qemu per eseguire l'immagine che abbiamo costruito ==
+== Come ssare qemu per eseguire l'immagine che abbiamo costruito in OE ==
 ----
 L'immagine generata da OpenEmbedded può essere _provata_ usando il programma *qemu*. Per eseguire qemu però ci serve un kernel linux e il programma uboot. Vedere la mia documentazione a riguardo.
 
