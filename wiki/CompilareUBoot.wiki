@@ -11,4 +11,4 @@ cd mini24440
 make CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm mini2440_config
 make CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm all
 }}}
-  * Il processo di compilazione lascerà nella directory diverse versioni di *uboot*. QUella che serve a noi è la *u-boot-nand512.bin* che ha il padding a 512byte e che ci serve per essere scaricata nella NAND della mini2440.
+  * Il processo di compilazione lascerà nella directory diverse versioni di *uboot*. Quella che serve a noi è la *u-boot-nand512.bin* che ha il padding a 512byte per essere scaricata nella NAND della mini2440.
