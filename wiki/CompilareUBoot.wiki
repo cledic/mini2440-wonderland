@@ -1,0 +1,14 @@
+=== Compilazione di uboot 
+----
+  * Ho eseguito i seguenti passi: ho scaricato ubbot dal git repository...
+{{{
+mkdir uboot ; cd uboot
+git clone git://repo.or.cz/u-boot-openmoko/mini2440.git
+cd mini24440
+}}}
+  * Ho poi eseguito la configurazione di uboot per la mini2440 e poi la compilazione:
+{{{
+make CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm mini2440_config
+make CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm all
+}}}
+  * Il processo di compilazione lascerà nella directory diverse versioni di *uboot*. QUella che serve a noi è la *u-boot-nand512.bin* che ha il padding a 512byte e che ci serve per essere scaricata nella NAND della mini2440.
