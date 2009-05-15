@@ -1,0 +1,71 @@
+== Utilizzo di OpenEmbedded per costruire una immagine ==
+----
+  * Ho creato l'utente embedded e sotto la home ho creato la dir *mini2440* e sotto ancora la dir *oe*
+{{{
+cd; mkdir mini2440; mkdir mini2440/oe; cd mini2440/oe
+}}}
+
+  * A questo punto ho scaricato i sorgenti...
+{{{
+git clone git://repo.or.cz/openembedded/mini2440.git
+}}}
+
+  * Ho aggiunto questa linea alla fine del file $HOME/.bashrc file, per utilizzare il programma *bitbake* presente in OE...
+{{{
+export PATH=/home/embedded/mini2440/oe/mini2440/bitbake/bin/:$PATH
+}}}
+
+  * a questo punto aprendo una nuova console si può verificare che il *PATH* sia aggiornato...
+{{{
+echo $PATH
+/home/embedded/mini2440/oe/mini2440/bitbake/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+}}}
+
+  * dalla console appena aperta ho poi creato un nuovo file *local.conf* ...
+{{{
+cat > /home/embedded/mini2440/oe/mini2440/conf/local.conf <<_EOF
+DISTRO = "angstrom-2008.1"
+BBPATH = "/home/embedded/mini2440/oe/mini2440/:/home/embedded/mini2440/oe/mini2440/conf"
+BBFILES = "/home/embedded/mini2440/oe/mini2440/recipes/*/*.bb"
+TMPDIR = "/home/embedded/mini2440/oe/mini2440/tmp"
+IMAGE_FSTYPES = "jffs2 ext3 tar"
+MACHINE = "mini2440"
+ENABLE_BINARY_LOCALE_GENERATION = "0"
+_EOF
+}}}
+
+  * ed ho eseguito questi comandi per avviare bitbake a costruire una *console-image*...
+{{{
+export BBPATH="/home/embedded/mini2440/oe/mini2440/:/home/embedded/mini2440/oe/mini2440/conf"
+export BBFILES="/home/embedded/mini2440/oe/mini2440/recipes/*/*.bb"
+cd /home/embedded/mini2440/oe/mini2440/
+./bitbake/bin/bitbake console-image
+}}}
+
+  * l'immagine che viene creata è sotto:
+{{{
+/home/embedded/mini2440/oe/mini2440/tmp/deploy/glibc/images/mini2440
+}}}
+
+  * E' possibile creare una *mini2440-image*...
+{{{
+export BBPATH="/home/embedded/mini2440/oe/mini2440/:/home/embedded/mini2440/oe/mini2440/conf"
+export BBFILES="/home/embedded/mini2440/oe/mini2440/recipes/*/*.bb"
+cd /home/embedded/mini2440/oe/mini2440/
+./bitbake/bin/bitbake mini2440-console
+}}}
+
+== Immagini disponibili ===
+----
+Sotto la dir:
+{{{
+/home/embedded/mini2440/oe/mini2440/recipes/images
+}}}
+ci sono altri *recipes* che possiamo eseguire. In particolare sto provando ad utilizzare l'immagine *opie-image* eseguendo
+{{{
+./bitbake/bin/bitbake opie-image
+}}}
+ma l'immagine prodotta, pur facendo boot senza problemi, non esegue opie, visualizzando il seguente errore:
+{{{
+Alignment trap: qcop (2057) PC=0x40295060 Instr=0x2800f9ad Address=0xffffffff FSR 0x813
+}}}
