@@ -1,0 +1,32 @@
+=== Compilazione di QEmu ===
+  * Dobbiamo scaricare il cross compiler per la nostra mini2440 da [http://www.codesourcery.com/sgpp/lite/arm/portal/package3696/public/arm-none-linux-gnueabi/arm-2008q3-72-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2 CodeSourcery]
+  * Dopo averlo decompresso, bisogna aggiungere al PATH il percorso di questo compilatore. Io ho scelto di aggiornare direttamente il file $HOME/.bashrc aggiungendo una riga per inserire il nuovo percorso:
+{{{
+PATH=/home/embedded/mini2440/oe/mini2440/bitbake/bin/:/home/embedded/arm-2008q3/bin:$PATH
+}}}
+
+  * Nel mio Ubuntu ho caricato questi pacchetti:
+{{{
+sudo apt-get install zlib-bin
+sudo apt-get install zlib1g-dev
+sudo apt-get install zlib1g
+
+cd
+cd mini2440/
+git clone git://repo.or.cz/qemu/mini2440.git
+}}}
+
+  * Compilare QEmu:
+{{{
+./configure
+make all
+}}}
+  * Costruzione del file qemu-ifup
+{{{
+sudo vi /etc/qemu-ifup
+#!/bin/sh
+sudo -p "Password for $0:" /sbin/ifconfig $1 172.20.0.1
+sudo chmod 755 /etc/qemu-ifup 
+}}}
+
+  * A questo punto QEmu è utilizzabile per avviare le immagini ed il kernel compilati per la mini2440
