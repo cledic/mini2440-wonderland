@@ -1,0 +1,74 @@
+== Usare qemu per eseguire l'immagine che abbiamo costruito ==
+----
+L'immagine generata da OpenEmbedded può essere _provata_ usando il programma *qemu*. Per eseguire qemu però ci serve un kernel linux e il programma uboot. Vedere la mia documentazione a riguardo.
+
+=== Preparazione di qemu ===
+  * QEmu per partire ha bisogno di due file: u-boot e uImage. Nel mio Ubunto ho compilato QEmu nel folder:_/home/embedded/mini2440/_ Dopo averlo scompattato mi sono ritrovato un'altra directory mini2440!
+  * Il file *u-boot.bin* deve essere posto sotto: _/home/embedded/mini2440/mini2440/mini2440_ mentre il file *uImage* sotto il folder: _/tftproot_
+  * Per nostra comodità, possiamo copiare il file immagine creatao da OpernEmbedded sotto il folder di QEmu. Per fare questo ho creato il folder *disk* sotto: _/home/embedded/mini2440/mini2440_
+  
+=== Avvio di QEmu ===
+  * Eseguire:
+{{{
+cd
+cd /home/embedded/mini2440/mini2440/
+sudo mini2440/mini2440_start.sh -sd ./disk/Angstrom-mini2440-image-glibc-ipk-2009.X-test-20090405-mini2440.rootfs.ext3
+}}}
+  * Lo script *mini2440_start.sh* ci permette di avviare qemu con le giuste opzioni e creando una immagine NAND di scrach. L'immagine OpenEmbedded è quella risultante dalla *mia* compilazione. La vostra avrà la data differente! State attenti!
+  * Se u-boot e uImage sono nelle directory giuste questo è l'output che vedremo:
+{{{
+Starting in mini2440
+mini2440/../arm-softmmu/qemu-system-arm -M mini2440 -sd
+disk/Angstrom-mini2440-image-glibc-ipk-2009.X-test-20090325-mini2440.rootfs.ext3
+-drive file=mini2440/mini2440_snapshots.img,snapshot=on -serial stdio
+-kernel /tftpboot/uImage -mtdblock mini2440/mini2440_nand.bin -show-cursor
+-usb -usbdevice keyboard -usbdevice mouse -net nic,vlan=0 -net
+tap,vlan=0,ifname=tap0 -monitor telnet::5555,server,nowait
+DM9000: INIT QEMU MAC : 52:54:00:12:34:56
+mini2440_reset: loaded default u-boot (size 38c00)
+mini2440_reset: loaded /tftpboot/uImage (size 1d5e00)
+
+
+U-Boot 1.3.2-moko12 (Mar 24 2009 - 02:33:38)
+
+I2C:   ready
+DRAM:  64 MB
+Flash:  2 MB
+NAND:  64 MiB
+*** Warning - bad CRC or NAND, using default environment
+
+USB:   S3C2410 USB Deviced
+In:    serial
+Out:   serial
+Err:   serial
+MAC: 08:08:11:18:12:27
+Hit any key to stop autoboot:  0
+MINI2440 #
+}}}
+
+  * A questo punto abbiamo il programma uboot in esecuzione ed il kernel caricato in memoria. Tutto questo lo ha fatto QEmu per noi. Nella pratica invece sarà nostra cura eseguire queste operazione.
+  * Adesso è ora di avviare il kernel Linux. Prima bisogna impostare la variabile *bootargs* per dare al kernel alcune informazioni:
+{{{
+setenv bootargs root=/dev/mmcblk0 rootfstype=ext3 console=ttySAC0,115200
+bootm
+}}}
+
+  * ...si avvierà il kernel...
+
+=== Immagine di OPIE "precotta" ===
+  * Ho scaricato da questo link una immagine [http://www.andahammer.com/Downloads/mini2440_2_6_29_rc5_nand_opie.bin.gz OPIE] già pronta.
+  * copiatela sotto la directory _/home/embedded/mini2440/mini2440/mini2440_ e poi avviate QEmu:
+{{{
+sudo mini2440/mini2440_start.sh -mtdblock mini2440/mini2440_2_6_29_rc5_nand_opie.bin
+}}}
+
+  * Adesso il sistema si avvierà automaticamente e la finestra grafica visualizzerà lo splash screen di OPIE!
+  * In questo caso, l'immagine che abbiamo usato è una immagine NAND. Infatti al posto del parametro *-sd* a QEmu abbiamo passato il parametro  *-mtdblock* che è il device NAND. Quindi QEmu ha trattato questa immagine come se fosse la NAND della mini2440, eseguendone dal suo interno il programma uboot ed a seguire il kernel, che a sua volta ha eseguito l'immagine sempre meorizzata nella NAND.
+
+
+# You can download this image: http://www.andahammer.com/Downloads/mini2440_2_6_29_rc5_nand_opie.bin.gz
+# and put the file inside /home/embedded/mini2440/mini2440/mini2440/
+# and then run qemu as:
+sudo mini2440/mini2440_start.sh -mtdblock mini2440/mini2440_2_6_29_rc5_nand_opie.bin
+
+# In this case qemu will run the OPIE splashscreen too.
