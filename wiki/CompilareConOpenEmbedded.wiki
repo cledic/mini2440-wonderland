@@ -1,6 +1,6 @@
 == Utilizzo di OpenEmbedded per costruire una immagine ==
 ----
-  * Ho creato l'utente embedded e sotto la home ho creato la dir *mini2440* e sotto ancora la dir *oe*
+  * In Ubuntu ho creato l'utente embedded e sotto la sua home ho creato la dir *mini2440* e sotto ancora la dir *oe*
 {{{
 cd; mkdir mini2440; mkdir mini2440/oe; cd mini2440/oe
 }}}
