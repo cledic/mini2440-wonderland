@@ -55,7 +55,7 @@ cd /home/embedded/mini2440/oe/mini2440/
 ./bitbake/bin/bitbake mini2440-console
 }}}
 
-== Immagini disponibili ===
+== Altre immagini che possiamo compilare ===
 ----
 Sotto la dir:
 {{{
