@@ -18,7 +18,7 @@ CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make mini2440_defconfig
 CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make
 }}}
 
-  * La compilazione lascerà nel folder _arch/arm/boot_ il file zImage che andremo a convertire in uImage con il programma mkimage:
+  * La compilazione lascerà nel folder _arch/arm/boot_ il file zImage che andremo a convertire in uImage con il programma *mkimage*:
 {{{
 sudo ../uboot/mini2440/tools/mkimage -A arm -O linux -T kernel -C none -a 0x30008000 -e 0x30008000 -d arch/arm/boot/zImage /tftpboot/uImage
 }}}
