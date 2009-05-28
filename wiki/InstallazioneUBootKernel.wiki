@@ -1,0 +1,56 @@
+=== Installazione di uboot ===
+  * Posizionare il deviatore su NOR. Collegare la RS232 ed avviare TeraTerm.
+  * Avviare la mini2440.
+{{{
+t Print the TOC struct of wince
+u Backup NAND Flash to HOST through USB(upload)
+r Restore NAND Flash from HOST through USB
+q Goto shell of vivi
+ Enter your selection: q
+}}}
+  * A questo punto possiamo scegliere di inviare uboot via USB con il comando:
+{{{
+load flash 0 232448 u
+}}}
+  * o con la seriale via XMODEM:
+{{{
+param set xmodem_timeout 100000000
+load flash 0 232448 x 
+}}}
+
+  * Nel comando _load flash 0 232448_ il valore *232448* è la dimensione del programma *uboot*. La compilazione di uboot infatti ci ha lasciato più versioni del programma. Quella che dobbiamo usare noi è la u-boot-nand512.bin Quella cioè che ha i padding a 512byte.
+  
+  * Riavviare la board posizionando lo switch su NAND. Questa volta partirà uboot...
+  * A questo punto passiamo alla configurazione dell'IP in modo da scaricare il kernel via TFTP.
+{{{
+set ipaddr 192.168.0.40
+set serverip 192.168.0.50
+}}}
+  * Il *serverip* è ovviamente il mio PC, configurato come server TFTP.
+  
+  * Adesso scarichiamo il kernel. Lo avevamo precedentemente salvato nel folder /tftproot con il nome uImage o uImage.bin. Il comando tftp scaricherà dalla rete i kernel, compiandolo nella RAM a partire dall'indirizzo 0x32000000.
+{{{
+tftp 0x32000000 uImage.bin
+}}}
+  
+  * Nelle varie prove che ho fatto ho visto che è utile cancellare la NAND prima della nuova scrittura.
+{{{
+nand erase 0x00060000 0x00500000
+nand write 0x32000000 0x00060000 0x00500000
+}}}
+  * Con il primo comando *nand* abbiamo cancellato l'area nella memoria NAND in cui verrà salvato il kernel. Il secondo comando *nand* eseguirà la copia dalla RAM, indirizzo 0x3200000, alla NAND, indirizzo 0x00060000.
+
+  * A questo punto possiamo settare i parametri per il kernel ed avviarlo. Io ho preparato una SDCard con l'image OpenEmbedded sopra, quindi ho usato questo comando:  
+{{{
+setenv bootargs console=ttySAC0,115200 noinitrd init=/sbin/init rootdelay=2 root=/dev/mmcblk0p1
+nboot kernel; bootm
+}}}
+  * la _root_ punta a _/dev/mmcblk0p1_ che è prima partizione della SDCard in cui c'è il rootfs. Il comando _rootdelay_ fa aspettare 2 secondi al processo di boot per dare tempo al sottosistema SDCard di avviarsi. I comandi _nboot kernel_ e *bootm* copiano il kernel dalla NAND alla RAM, per poi avviarlo.
+
+  * Ho preparato la SDCard con due partizioni. Una è VFAT e la faccio leggere da uboot per caricare il kernel. L'altra è ext3 e c'è dentro l'immagine del filesystem. Attenzione al comando *setenv bootargs* percheé il parametro _root=_ adesso punta  a _/dev/mmcblk0p2_
+{{{
+mmcinit
+fatload mmc 0:1 0x32000000 uimage
+setenv bootargs console=ttySAC0,115200 noinitrd init=/sbin/init rootdelay=2 root=/dev/mmcblk0p2
+bootm
+}}}
