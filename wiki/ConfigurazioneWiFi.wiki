@@ -1,0 +1,83 @@
+=== Configurazione del WiFi, modalità WEP ===
+  * Questa configurazione è la sola utilizzabile con la rootfs Qtopia 2.2 datata: 20090429 (http://www.friendlyarm.net/dl.php?file=root_qtopia_20090429.tgz) Per collegarsi a reti WEP bisogna avere il pacchetto wpa_supplicant.
+
+  * Sto utilizzando un adattatore WiFi USB modello ASUS WL-167G, che ha come chipset il Ralink rt2501/rt73. Una volta inserito l'adattatore, usare il comando *wiconfig* per verificare la presenza del device *wlan0*. 
+{{{
+[root@FriendlyARM /]# iwconfig
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+
+wmaster0  no wireless extensions.
+
+wlan0     IEEE 802.11bg  ESSID:""
+          Mode:Managed  Frequency:2.412 GHz  Access Point: Not-Associated
+          Tx-Power=0 dBm
+          Retry min limit:7   RTS thr:off   Fragment thr=2352 B
+          Encryption key:off
+          Power Management:off
+          Link Quality:0  Signal level:0  Noise level:0
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+
+}}}
+
+  * Ho impartito i seguenti comandi per collegarmi ad una rete WIFI WEP:
+{{{
+iwconfig wlan0 mode managed
+iwconfig wlan0 key restricted s:PASSWORD_RETE_WEP
+iwconfig wlan0 essid NOME_RETE_WEP
+ifconfig wlan0 up
+}}}
+  * a questo punto la console visualizza il messaggio che sta caricando il firmware al dispositivo USB. Il firmware è sotto _/lib/firmware_.
+{{{
+[root@FriendlyARM /]# ifconfig wlan0 up
+rt73usb 1-1:1.0: firmware: requesting rt73.bin
+}}}
+  * I comandi a seguire configurano l'interfaccia con un IP fisso.
+{{{
+ifconfig eth0 down
+ifconfig wlan0 192.168.1.40
+route add default gw 192.168.1.1
+echo "nameserver 192.168.1.1" > /etc/resolv.conf
+}}}
+  * Un comando utile per "vedere cosa c'è nell'aria" è il seguente:
+{{{
+iwlist wlan0 scan
+}}}
+
+=== Configurazione WiFi WAP ===
+  * Per le reti WAP bisogna installare il pacchetto wpa_supplicant. Vedi site: http://www.arearelax.org/2008/11/17/wireless-in-terminal-wpa-wep/
+
+  * Procedura per network WAP: reare il file wpa_supplicant.conf impartendo il seguente comando:
+{{{
+wpa_passphrase NOME_RETE_WIFI PASSWORD_RETE_WIFI >> /etc/wpa_supplicant.conf
+}}}
+
+  * Editare il file aggiungendo:
+{{{
+ctrl_interface=/var/run/wpa_supplicant
+fast_reauth=1
+network={
+scan_ssid=0
+ssid="NOME_RETE_WIFI"
+proto=WPA
+key_mgmt=WPA-PSK
+pairwise=CCMP TKIP
+group=CCMP TKIP WEP104 WEP40
+#psk="PASSWORD_RETE_WIFI"
+psk=<la key generata>
+}
+}}}
+
+  * A questo punto eseguire il comando:
+{{{
+/usr/sbin/wpa_supplicant -B -Dwext -iwlan0 -c/etc/wpa_supplicant.conf
+}}}
+
+  * Per programmare l'IP dell'interfaccia usare il comando:
+{{{
+ifconfig wlan0 <IP>
+}}}
+
+  * Questa configurazione WAP l'ho provata con successo utilizzando una image Angstrom.
