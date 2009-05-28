@@ -30,7 +30,7 @@ set serverip 192.168.0.50
 }}}
   * Il *serverip* è ovviamente il mio PC, configurato come server TFTP.
   
-  * Adesso scarichiamo il kernel. Lo avevamo precedentemente salvato nel folder /tftproot con il nome uImage o uImage.bin. Il comando tftp scaricherà dalla rete i kernel, compiandolo nella RAM a partire dall'indirizzo 0x32000000.
+  * Adesso scarichiamo il kernel. Lo avevamo precedentemente salvato nel folder /tftpboot con il nome uImage o uImage.bin. Il comando tftp scaricherà dalla rete il kernel, compiandolo nella RAM a partire dall'indirizzo 0x32000000.
 {{{
 tftp 0x32000000 uImage.bin
 }}}
@@ -59,3 +59,5 @@ bootm
   * Il comando _mmcinit_ avvia il sottosistema per gestire la SDCard, il comando _fatload mmc 0:1_ legge dalla prima partizione del primo device SDCard il file _uImage_ copiandolo nell'indirizzo _0x32000000_. A seguire poi il comando per impostare gli argomenti al kernel, dove il parametro _root=_ ha cambiato il numero della partizione in _/dev/mmcblk0p2_.
 
   * Questo modo di lavorare l'ho copiato dalla BeagleBoard. Può essere comodo se stiamo lavorando con differenti kernel.
+
+=== In queste prove io non ho mai memorizzato i parametri in maniera definitiva nella NAND. Fatelo solo se ne sarete sicuri. Questa procedura ha funzionato per il mio impianto e la mia board. Non mi ritengo responsabile di eventuali danni/blocchi al vostro impianto seguendo queste mie istruzioni. ===
