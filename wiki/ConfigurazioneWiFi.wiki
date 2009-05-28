@@ -49,7 +49,7 @@ iwlist wlan0 scan
 === Configurazione WiFi WAP ===
   * Per le reti WAP bisogna installare il pacchetto wpa_supplicant. Vedi site: http://www.arearelax.org/2008/11/17/wireless-in-terminal-wpa-wep/
 
-  * Procedura per network WAP: reare il file wpa_supplicant.conf impartendo il seguente comando:
+  * Procedura per network WAP: creare il file wpa_supplicant.conf impartendo il seguente comando:
 {{{
 wpa_passphrase NOME_RETE_WIFI PASSWORD_RETE_WIFI >> /etc/wpa_supplicant.conf
 }}}
