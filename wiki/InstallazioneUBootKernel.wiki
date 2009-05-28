@@ -47,12 +47,15 @@ nand write 0x32000000 0x00060000 0x00500000
 setenv bootargs console=ttySAC0,115200 noinitrd init=/sbin/init rootdelay=2 root=/dev/mmcblk0p1
 nboot kernel; bootm
 }}}
-  * la _root_ punta a _/dev/mmcblk0p1_ che è prima partizione della SDCard in cui c'è il rootfs. Il comando _rootdelay_ fa aspettare 2 secondi al processo di boot per dare tempo al sottosistema SDCard di avviarsi. I comandi _nboot kernel_ e *bootm* copiano il kernel dalla NAND alla RAM, per poi avviarlo.
+  * Il parametro _root=_ punta a _/dev/mmcblk0p1_ che è prima partizione della SDCard in cui c'è il rootfs. Il comando _rootdelay_ fa aspettare 2 secondi al processo di boot per dare tempo al sottosistema SDCard di avviarsi. I comandi _nboot kernel_ e *bootm* copiano il kernel dalla NAND alla RAM, per poi avviarlo.
 
-  * Ho preparato la SDCard con due partizioni. Una è VFAT e la faccio leggere da uboot per caricare il kernel. L'altra è ext3 e c'è dentro l'immagine del filesystem. Attenzione al comando *setenv bootargs* percheé il parametro _root=_ adesso punta  a _/dev/mmcblk0p2_
+  * Ho preparato la SDCard con due partizioni. Una è VFAT e la faccio leggere da uboot per caricare il kernel. L'altra è ext3 e c'è dentro l'immagine del filesystem. Attenzione al comando *setenv bootargs* perché il parametro _root=_ adesso punta  a _/dev/mmcblk0p2_
 {{{
 mmcinit
-fatload mmc 0:1 0x32000000 uimage
+fatload mmc 0:1 0x32000000 uImage
 setenv bootargs console=ttySAC0,115200 noinitrd init=/sbin/init rootdelay=2 root=/dev/mmcblk0p2
 bootm
 }}}
+  * Il comando _mmcinit_ avvia il sottosistema per gestire la SDCard, il comando _fatload mmc 0:1_ legge dalla prima partizione del primo device SDCard il file _uImage_ copiandolo nell'indirizzo _0x32000000_. A seguire poi il comando per impostare gli argomenti al kernel, dove il parametro _root=_ ha cambiato il numero della partizione in _/dev/mmcblk0p2_.
+
+  * Questo modo di lavorare l'ho copiato dalla BeagleBoard. Può essere comodo se stiamo lavorando con differenti kernel.
