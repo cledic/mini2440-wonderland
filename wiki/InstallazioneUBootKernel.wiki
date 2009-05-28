@@ -1,5 +1,5 @@
 === Installazione di uboot ===
-  * Posizionare il deviatore su NOR. Collegare la RS232 ed avviare TeraTerm.
+  * Posizionare il deviatore su NOR. Collegare la RS232 ed avviare TeraTerm
   * Avviare la mini2440.
 {{{
 t Print the TOC struct of wince
@@ -21,6 +21,8 @@ load flash 0 232448 x
   * Nel comando _load flash 0 232448_ il valore *232448* è la dimensione del programma *uboot*. La compilazione di uboot infatti ci ha lasciato più versioni del programma. Quella che dobbiamo usare noi è la u-boot-nand512.bin Quella cioè che ha i padding a 512byte.
   
   * Riavviare la board posizionando lo switch su NAND. Questa volta partirà uboot...
+
+=== Installazione del Kernel ===
   * A questo punto passiamo alla configurazione dell'IP in modo da scaricare il kernel via TFTP.
 {{{
 set ipaddr 192.168.0.40
