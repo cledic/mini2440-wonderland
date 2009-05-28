@@ -1,0 +1,26 @@
+=== Compilare il Kernel ===
+----
+  * Download del kernel
+{{{
+cd; cd mini2440
+mkdir kernel ; cd kernel
+git clone git://repo.or.cz/linux-2.6/mini2440.git
+cd mini2440
+}}}
+
+  * Generiamo la .config dal template della mini2440:
+{{{
+CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make mini2440_defconfig
+}}}
+
+  * A questo punto compiliamo il kernel.
+{{{
+CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make
+}}}
+
+  * La compilazione lascerà nel folder _arch/arm/boot_ il file zImage che andremo a convertire in uImage con il programma mkimage:
+{{{
+sudo ../uboot/mini2440/tools/mkimage -A arm -O linux -T kernel -C none -a 0x30008000 -e 0x30008000 -d arch/arm/boot/zImage /tftpboot/uImage
+}}}
+
+  * Il comando mkimage modifica la zImage per essere avviata da *uboot*. Il folder dove lascia la uImage è quello che si aspetta *qemu*.
