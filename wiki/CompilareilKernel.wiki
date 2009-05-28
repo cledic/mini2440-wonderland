@@ -17,7 +17,7 @@ CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make mini2440_defconfig
 {{{
 CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make menuconfig
 }}}
-  * _potrebbe essere necessario scaricare con il comando *apt-get* le librerie ncurses_
+  * _per eseguire *menuconfig* potrebbe essere necessario scaricare con il comando *apt-get* le librerie ncurses_
 
   * A questo punto compiliamo il kernel.
 {{{
@@ -29,4 +29,4 @@ CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make
 sudo ../uboot/mini2440/tools/mkimage -A arm -O linux -T kernel -C none -a 0x30008000 -e 0x30008000 -d arch/arm/boot/zImage /tftpboot/uImage
 }}}
 
-  * Il comando mkimage modifica la zImage per essere avviata da *uboot*. Il folder dove lascia la uImage è quello che si aspetta *qemu*.
+  * Il comando mkimage modifica la zImage per essere avviata da *uboot*. Il folder dove lascia la uImage è quello da cui si aspetta di leggere il kernel *qemu*.
