@@ -13,6 +13,12 @@ cd mini2440
 CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make mini2440_defconfig
 }}}
 
+  * Se dobbiamo modificare il kernel eseguiamo:
+{{{
+CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make menuconfig
+}}}
+  * _potrebbe essere necessario scaricare con il comando *apt-get* le librerie ncurses_
+
   * A questo punto compiliamo il kernel.
 {{{
 CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm make
