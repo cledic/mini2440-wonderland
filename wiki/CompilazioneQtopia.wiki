@@ -1,0 +1,69 @@
+=== Compilazione di QTopia ===
+  * Sto cercando di compilare Qtopia, partendo dalla distribuzione presente sul sito: http://www.friendlyarm.net/dl.php?file=root_qtopia_20090429.tgz
+  * Ho seguito fedelmente le indicazione prese da: http://www.devbored.com/wiki/index.php?title=Main_Page. E' importante che vengano scaricati tutti i pacchetti software nella nostra macchina Ubuntu! La distribuzione è locata sotto la directory _/opt_ e quindi è necessario avviare le compilazioni con il comando *sudo*
+
+  * Quello a cui puntavo era compilare l'intera distribuzine QTopia 2.2 per poi usarla come base per i miei programmi.
+  * Seguendo le indicazioni di *devbored* sono riuscito a compilare QTopia ma non *Konqueror*.
+
+  * Questo è il modo corretto per far partire la compilazione o il build dei programmi QTopia:
+{{{
+sudo \
+QPEDIR=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qtopia \
+QTOPIA_DEPOT_PATH=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qtopia \
+QTDIR=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qt2 \
+DQTDIR=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/dqt \
+TMAKEDIR=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/tmake \
+TMAKEPATH=$TMAKEDIR/lib/qws/linux-arm-g++ \
+PATH=$QPEDIR/bin:$QTDIR/bin:$DQTDIR/bin:/usr/local/arm/4.3.2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/game \
+LD_LIBRARY_PATH=$QPEDIR/lib:$QTDIR/lib:$DQTDIR/lib:$LD_LIBRARY_PATH \
+}}}
+
+  * Purtroppo la compilazione di Konqueror si ferma con questo msg:
+{{{
+./../dropin/kmessagebox.h:76: warning: unused parameter 'okButton'
+/bin/sh ../../libtool --silent --mode=link --tag=CXX arm-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -Wall -W -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -DNDEBUG -DNO_DEBUG -O2 -fno-exceptions -fno-check-new -fno-rtti -D_QT_QPE_ -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_ASCII_CAST   -ldl -o konqueror  -L/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qtopia/lib -L/usr/local/kde/lib   main.o mainwindowbase.o htmlview.o popuphandler.o view.o run.o browseriface.o bookmarks.o preferences.o preferencesimpl.o mainwindow_qpe.o mainwindow_x11.o mainwindow_kiosk.o xmltree.o bookmarkeditor.o bookmarkeditorimpl.o bookmarkedit.o bookmarkeditimpl.o mainwindebug.o   ../../konq-embed/kdesrc/khtml/ecma/libkjs_html_i.la ../../konq-embed/kdesrc/kjs/libkjs.la  ../../konq-embed/kdesrc/khtml/libkhtml_i.la 
+/usr/lib/libjpeg.so: could not read symbols: File in wrong format
+collect2: ld returned 1 exit status
+}}}
+  * Avevo copiato la _libjpeg_ presa dall'immagine di root_qtopia in tutte le dir definite in _LD_LIBRARY_PATH_ ma la compilazione non ha comunque funzionato.
+
+  * Sembra però che l'ambiente Qtopia sia completo. Ho compilato quindi  con successo l'esempio *hello*. 
+
+=== Compilazione di hello ===
+
+  * Ho eseguito nel path _/opt/FriendlyARM/mini2440/arm-qtopia/hello_ il comando:
+{{{
+sudo \
+QPEDIR=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qtopia \
+QTOPIA_DEPOT_PATH=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qtopia \
+QTDIR=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qt2 \
+DQTDIR=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/dqt \
+TMAKEDIR=/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/tmake \
+TMAKEPATH=$TMAKEDIR/lib/qws/linux-arm-g++ \
+PATH=$QPEDIR/bin:$QTDIR/bin:$DQTDIR/bin:/usr/local/arm/4.3.2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/game \
+LD_LIBRARY_PATH=$QPEDIR/lib:$QTDIR/lib:$DQTDIR/lib:$LD_LIBRARY_PATH \
+./build
+}}}
+
+  * In questa maniera ho mantenuto le variabili di ambiente corrette per la compilazione. L'eseguibile viene salvato sotto:
+{{{
+/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qtopia/image/opt/Qtopia/bin/hello
+}}}
+  * deve essere copiato nella mini2440 nel path:
+{{{
+/opt/Qtopia/bin/hello
+}}}
+
+  * Serve poi il file *hello.desktop* da salvare sotto:
+{{{
+/opt/Qtopia/apps/Application/hello.desktop
+}}}
+  * Al riavvio della mini2440 è apparsa nel primo tab di Qtopia il programma hello! L'icona non c'era, ma il programma ha funzionato!
+
+  * Adesso sto provando a usare il *designer* che ho trovato sotto :
+{{{
+/opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qt2/bin
+}}}
+  * Il programma lo devo eseguire con il *sudo*, altrimenti non riesce a salvare i file. In Internet ho trovato questo tutorial fatto molto bene: *http://doc.trolltech.com/2.3/book1.html*
+
+
