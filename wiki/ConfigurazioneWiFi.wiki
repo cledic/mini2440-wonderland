@@ -1,7 +1,7 @@
 === Configurazione del WiFi, modalità WEP ===
   * Questa configurazione è la sola utilizzabile con la rootfs Qtopia 2.2 datata: 20090429 (http://www.friendlyarm.net/dl.php?file=root_qtopia_20090429.tgz) Per collegarsi a reti WEP bisogna avere il pacchetto *wpa_supplicant*.
 
-  * Sto utilizzando un adattatore WiFi USB modello *ASUS WL-167G*, che ha come chipset il Ralink rt2501/rt73. Una volta inserito l'adattatore, usare il comando *wiconfig* per verificare la presenza del device *wlan0*. 
+  * Sto utilizzando un adattatore WiFi USB modello *ASUS WL-167G*, che ha come chipset il Ralink rt2501/rt73. Una volta collegato l'adattatore alla board usare il comando *wiconfig* per verificare la presenza del device *wlan0*. 
 {{{
 [root@FriendlyARM /]# iwconfig
 lo        no wireless extensions.
