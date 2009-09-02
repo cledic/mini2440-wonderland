@@ -1,3 +1,4 @@
+#summary Compilazione di Qtopia
 === Compilazione di QTopia ===
   * Sto cercando di compilare Qtopia, partendo dalla distribuzione presente sul sito: http://www.friendlyarm.net/dl.php?file=root_qtopia_20090429.tgz
   * Ho seguito fedelmente le indicazione prese da: http://www.devbored.com/wiki/index.php?title=Main_Page. E' importante che vengano scaricati tutti i pacchetti software nella nostra macchina Ubuntu! La distribuzione è locata sotto la directory _/opt_ e quindi è necessario avviare le compilazioni con il comando *sudo*
@@ -65,5 +66,3 @@ LD_LIBRARY_PATH=$QPEDIR/lib:$QTDIR/lib:$DQTDIR/lib:$LD_LIBRARY_PATH \
 /opt/FriendlyARM/mini2440/arm-qtopia/qtopia-2.2.0-FriendlyARM/qt2/bin
 }}}
   * Il programma lo devo eseguire con il *sudo*, altrimenti non riesce a salvare i file. In Internet ho trovato questo tutorial fatto molto bene: *http://doc.trolltech.com/2.3/book1.html*
-
-
