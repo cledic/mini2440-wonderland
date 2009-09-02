@@ -1,0 +1,54 @@
+#summary Come creare un disco image in Linux
+
+= Creazione di un disco image =
+
+Per costruire il file immagine impartire questo comando:
+{{{
+dd if=/dev/zero of=android.img bs=128M count=1
+}}}
+Il comando dd creerà un file di nome "android.img" grande 128MB pieno di zeri!
+Per il comando "dd" vedere: http://en.wikipedia.org/wiki/Dd_(Unix)
+
+A questo punto dobbiamo "formattare" il nostro disco, ed il comando è:
+{{{
+mkfs.ext3 android.img
+}}}
+Il comando visualizzerà il seguente messaggio:
+{{{
+mke2fs 1.40.8 (13-Mar-2008)
+android.img is not a block special device.
+Proceed anyway? (y,n) y
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+32768 inodes, 131072 blocks
+6553 blocks (5.00%) reserved for the super user
+First data block=1
+Maximum filesystem blocks=67371008
+16 block groups
+8192 blocks per group, 8192 fragments per group
+2048 inodes per group
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729
+
+Writing inode tables: done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+This filesystem will be automatically checked every 36 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+}}}
+Nelle prime righe ci chiederà se vogliamo proseguire con la creazione del file system, perché si è accorto che "non è" un disco vero. Una volta risposto con "y" il comando eseguirà la formattazione.
+
+A questo punto basterà "montare" la nostra immagine per riempirla:
+{{{
+sudo mount -o loop android.img /mnt
+}}}
+Eseguendo un "ls -l /mnt" si otterrà:
+{{{
+total 12
+drwx------ 2 root root 12288 2009-09-02 08:14 lost+found
+}}}
+
+A questo punto è possibile copiare un intero filesystem nella nostra immagine. Per farlo consiglio sempre di eseguire il comando di copia con il comando "sudo" per preservare gli attributi dei file e per essere sicuri di copiare tutti i file.
