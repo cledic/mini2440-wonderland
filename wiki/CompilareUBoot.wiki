@@ -1,5 +1,5 @@
-#summary Compilare di UBoot
-=== Compilare di uboot ===
+#summary Compilare uboot
+=== Compilare uboot ===
 ----
   * Ho eseguito i seguenti passi: ho scaricato ubbot dal git repository...
 {{{
