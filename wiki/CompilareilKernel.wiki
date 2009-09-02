@@ -1,3 +1,5 @@
+#summary Compilare il Kernel
+
 === Compilare il Kernel ===
 ----
   * Download del kernel
