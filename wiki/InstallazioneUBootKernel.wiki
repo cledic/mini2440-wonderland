@@ -1,3 +1,5 @@
+#summary Installazione di uboot
+
 === Installazione di uboot ===
   * Posizionare il deviatore su NOR. Collegare la RS232 ed avviare TeraTerm
   * Avviare la mini2440.
