@@ -1,3 +1,4 @@
+#summary Configurazione del WiFi, modalità WEP
 === Configurazione del WiFi, modalità WEP ===
   * Questa configurazione è la sola utilizzabile con la rootfs Qtopia 2.2 datata: 20090429 (http://www.friendlyarm.net/dl.php?file=root_qtopia_20090429.tgz) Per collegarsi a reti WEP bisogna avere il pacchetto *wpa_supplicant*.
 
