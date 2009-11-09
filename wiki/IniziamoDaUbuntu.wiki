@@ -23,9 +23,9 @@ sudo apt-get upgrade
 
   * ho poi aggiunto altri pacchetti...
 {{{
-sudo apt-get install ccache sed wget cvs subversion git-core coreutils
+sudo apt-get install ccache sed wget cvs subversion git-core coreutils \
 unzip texi2html texinfo libsdl1.2-dev \
-docbook-utils gawk help2man diffstat gtk-doc-tools file g++
+docbook-utils gawk help2man diffstat gtk-doc-tools file g++ \
 python-psyco minicom build-essential \
 libncurses5-dev python-dev python-pysqlite2
 }}}
