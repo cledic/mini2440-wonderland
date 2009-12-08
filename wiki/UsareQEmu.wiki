@@ -73,3 +73,8 @@ sudo mini2440/mini2440_start.sh -mtdblock mini2440/mini2440_2_6_29_rc5_nand_opie
 sudo mini2440/mini2440_start.sh -mtdblock mini2440/mini2440_2_6_29_rc5_nand_opie.bin
 
 # In this case qemu will run the OPIE splashscreen too.
+
+=== Immagine Linux con demo di directFB ===
+  * Sono inciampato in questo link ed ho trovato una cosa, per me, sbalorditiva. Un piccolo sistema Linux completo grande pochi Megabyte con il demo di directFB. Fatelo partire seguendo le indicazioni del link (1): è uno spasso!
+
+  * 1) http://free-electrons.com/community/demos/qemu-arm-directfb/
