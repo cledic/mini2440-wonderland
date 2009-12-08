@@ -17,7 +17,7 @@ A seguire poi è decisamente *utile* seguire la pagina di Microsoft con i relati
 Una volta terminati i download da Microsoft bisogna scaricare il file con la BSP da questo sito (4).
 All'interno dello ZIP ci sono i nuovi bootloader vivi, per la versione 64M e 128M della mini2440, e il file EXE da eseguire per installare la BSP. I file saranno installati sotto: `C:\WINCE600\OSDesigns\Mini2440` e `C:\WINCE600\PLATFORM\Mini2440`.
 
-= Aggiornamento bootloader =
+= Aggiornamento bootloader Vivi =
 A questo punto dobbiamo aggiornare il booloader vivi nella NOR della board. Per fare questo è bene seguire le indicazioni di questo PDF (5). Un'altro programma importante per questa operazione lo troverete a questo link (6). Si tratta del programma H-JTAG.
 
 = Avviamo la compilazione =
@@ -26,9 +26,11 @@ Ho avviato la compilazione eseguendo, sotto il menu "Build", "l'item "Build Solu
 Credo che compili molte cose perché impiega molto tempo. Se tutto andrà bene vi troverete 
 il file *nk.bin* sotto: `C:\WINCE600\OSDesigns\Mini2440\Mini2440\RelDir\Mini2440_ARMV4I_Release`.
 
+= Personalizzare l'immagine =
 Prima della compilazione però potrebbe essere necessario personalizzare l'immagine. Il file *options.h* sotto la dir `C:\WINCE600\PLATFORM\Mini2440\SRC\INC\options.h`vi permette di modificare adattare quanto serve alla vostra *mini2440*.
 Nel mio caso ho modificato il file come segue:
 {{{
+-- ritaglio --
 // --- by customer
 #define KITL_NONE
 //#define KITL_SERIAL_UART0
@@ -44,6 +46,7 @@ Nel mio caso ho modificato il file come segue:
 
 #define TOUCH_SCREEN_WIDTH  1024
 #define TOUCH_SCREEN_HEIGHT 768
+-- ritaglio --
 }}}
 
 Infatti la mia mini2440 è collegata ad un LCD da 7 pollici con touch screen.
