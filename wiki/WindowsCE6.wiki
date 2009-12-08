@@ -1,4 +1,4 @@
-#Prima bozza di come compilare la BSP per la mini2440 in Windows CE 6
+#summary Prima bozza di come compilare la BSP per la mini2440 in Windows CE 6
 
 = Riporto di seguito una breve indicazione di come compilare la BSP della mini2440 per Windows CE 6 =
 
