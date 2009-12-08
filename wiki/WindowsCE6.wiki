@@ -1,0 +1,25 @@
+#Prima bozza di come compilare la BSP per la mini2440 in Windows CE 6
+
+= Riporto di seguito una breve indicazione di come compilare la BSP della mini2440 per Windows CE 6 =
+
+Devo dire che l'unico problema che ho incontrato è il trovare la giusta immagine di Visual Studio 2005!! Da non credere!!
+
+
+= Inzio download... =
+
+Un buon link è questo della Microsoft, dove elenca in ordine cosa installare [1].
+Ma proprio il primo download, il più importante, deve essere fatto da qui [2].
+Una volta scaricato, potete montare questa immagine con DEAMON, c'è la versione Lite a questo link [3]. Una volta montata si avvierà automaticamente il programma di installazione. Altrimenti cedo sia necessario eseguire l'autorun.exe nel folder *vs*.
+
+A seguire poi è decisamente *utile* seguire la pagina di Microsoft con i relativi download.
+
+Una volta terminati i download e le installazioni fare 
+
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+
+  * [1] http://www.microsoft.com/windowsembedded/en-us/products/windowsce/getting-started.mspx
+  * [2] http://download.microsoft.com/download/e/0/4/e04de840-8f6b-4fe5-ac3d-d3ad8e4c2443/En_vs_2005_Pro_90_Trial.img 
+  * [3] http://download.html.it/software/vedi/3839/daemon-tools-lite/
