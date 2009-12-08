@@ -1,6 +1,6 @@
-#summary Prima bozza di come compilare la BSP per la mini2440 in Windows CE 6
+#summary Prima bozza di come compilare la BSP per la mini2440 in WindowsCE6
 
-= Riporto di seguito una breve indicazione di come compilare la BSP della mini2440 per Windows CE 6 =
+= Riporto di seguito una breve indicazione di come compilare la BSP della mini2440 per WindowsCE6 =
 
 Devo dire che l'unico problema che ho incontrato è il trovare la giusta immagine di Visual Studio 2005!! Da non credere!!
 
@@ -11,13 +11,20 @@ Un buon link è questo della Microsoft, dove elenca in ordine cosa installare (1
 Ma proprio il primo download, il più importante, deve essere fatto da qui (2).
 Una volta scaricato, potete montare questa immagine con DEAMON, c'è la versione Lite a questo link (3). Una volta montata si avvierà automaticamente il programma di installazione. Altrimenti credo sia necessario eseguire l'autorun.exe nel folder *vs*.
 
+= Download della BSP =
+
 A seguire poi è decisamente *utile* seguire la pagina di Microsoft con i relativi download.
-
 Una volta terminati i download da Microsoft bisogna scaricare il file con la BSP da questo sito (4).
-All'interno dello ZIP ci sono i nuovi bootloader vivi, per la versione 64M e 128M della mini2440, e il file EXE da eseguire per installare la BSP.
+All'interno dello ZIP ci sono i nuovi bootloader vivi, per la versione 64M e 128M della mini2440, e il file EXE da eseguire per installare la BSP. I file saranno installati sotto: *C:\WINCE600\OSDesigns\Mini2440* e *C:\WINCE600\PLATFORM\Mini2440*.
 
+= Aggiornamento bootloader =
 A questo punto dobbiamo aggiornare il booloader vivi nella NOR della board. Per fare questo è bene seguire le indicazioni di questo PDF (5). Un'altro programma importante per questa operazione lo troverete a questo link (6). Si tratta del programma H-JTAG.
 
+= Avviamo la compilazione =
+A questo punto bisogna eseguire il file *C:\WINCE600\OSDesigns\Mini2440\Mini2440.sln*. Se tutto è stato installato correttamente si aprirà il progetto in *Visual Studio*.
+Ho avviato la compilazione eseguendo, sotto il menu "Build", "l'item "Build Solution".
+Credo che compili molte cose perché impiega molto tempo. Se tutto andrà bene vi troverete 
+il file *nk.bin* sotto: *C:\WINCE600\OSDesigns\Mini2440\Mini2440\RelDir\Mini2440_ARMV4I_Release*.
 
   * 1) http://www.microsoft.com/windowsembedded/en-us/products/windowsce/getting-started.mspx
   * 2) http://download.microsoft.com/download/e/0/4/e04de840-8f6b-4fe5-ac3d-d3ad8e4c2443/En_vs_2005_Pro_90_Trial.img 
