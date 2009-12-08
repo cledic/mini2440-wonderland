@@ -24,7 +24,7 @@ A questo punto dobbiamo aggiornare il booloader vivi nella NOR della board. Per 
 A questo punto bisogna eseguire il file *C:\WINCE600\OSDesigns\Mini2440\Mini2440.sln*. Se tutto è stato installato correttamente si aprirà il progetto in *Visual Studio*.
 Ho avviato la compilazione eseguendo, sotto il menu "Build", "l'item "Build Solution".
 Credo che compili molte cose perché impiega molto tempo. Se tutto andrà bene vi troverete 
-il file *nk.bin* sotto: *C:\WINCE600\OSDesigns\Mini2440\Mini2440\RelDir\Mini2440_ARMV4I_Release*.
+il file *nk.bin* sotto: `C:\WINCE600\OSDesigns\Mini2440\Mini2440\RelDir\Mini2440_ARMV4I_Release`.
 
   * 1) http://www.microsoft.com/windowsembedded/en-us/products/windowsce/getting-started.mspx
   * 2) http://download.microsoft.com/download/e/0/4/e04de840-8f6b-4fe5-ac3d-d3ad8e4c2443/En_vs_2005_Pro_90_Trial.img 
