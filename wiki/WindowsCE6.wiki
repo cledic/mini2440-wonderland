@@ -7,16 +7,16 @@ Devo dire che l'unico problema che ho incontrato è il trovare la giusta immagin
 
 = Inzio download... =
 
-Un buon link è questo della Microsoft, dove elenca in ordine cosa installare [1].
-Ma proprio il primo download, il più importante, deve essere fatto da qui [2].
-Una volta scaricato, potete montare questa immagine con DEAMON, c'è la versione Lite a questo link [3]. Una volta montata si avvierà automaticamente il programma di installazione. Altrimenti credo sia necessario eseguire l'autorun.exe nel folder *vs*.
+Un buon link è questo della Microsoft, dove elenca in ordine cosa installare (1).
+Ma proprio il primo download, il più importante, deve essere fatto da qui (2).
+Una volta scaricato, potete montare questa immagine con DEAMON, c'è la versione Lite a questo link (3). Una volta montata si avvierà automaticamente il programma di installazione. Altrimenti credo sia necessario eseguire l'autorun.exe nel folder *vs*.
 
 A seguire poi è decisamente *utile* seguire la pagina di Microsoft con i relativi download.
 
-Una volta terminati i download da Microsoft bisogna scaricare il file con la BSP da questo sito [4].
+Una volta terminati i download da Microsoft bisogna scaricare il file con la BSP da questo sito (4).
 All'interno dello ZIP ci sono i nuovi bootloader vivi, per la versione 64M e 128M della mini2440, e il file EXE da eseguire per installare la BSP.
 
-A questo punto dobbiamo aggiornare il booloader vivi nella NOR della board. Per fare questo è bene seguire le indicazioni di questo PDF [5]. Un'altro programma importante per questa operazione lo troverete a questo link [6]. Si tratta del programma H-JTAG.
+A questo punto dobbiamo aggiornare il booloader vivi nella NOR della board. Per fare questo è bene seguire le indicazioni di questo PDF (5). Un'altro programma importante per questa operazione lo troverete a questo link (6). Si tratta del programma H-JTAG.
 
 
   * 1) http://www.microsoft.com/windowsembedded/en-us/products/windowsce/getting-started.mspx
