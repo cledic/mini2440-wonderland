@@ -25,6 +25,7 @@ A questo punto bisogna eseguire il file `C:\WINCE600\OSDesigns\Mini2440\Mini2440
 Ho avviato la compilazione eseguendo, sotto il menu "Build", "l'item "Build Solution".
 Credo che compili molte cose perché impiega molto tempo. Se tutto andrà bene vi troverete 
 il file *nk.bin* sotto: `C:\WINCE600\OSDesigns\Mini2440\Mini2440\RelDir\Mini2440_ARMV4I_Release`.
+
 Prima della compilazione però potrebbe essere necessario personalizzare l'immagine. Il file *options.h* sotto la dir `C:\WINCE600\PLATFORM\Mini2440\SRC\INC\options.h`vi permette di modificare adattare quanto serve alla vostra *mini2440*.
 Nel mio caso ho modificato il file come segue:
 {{{
@@ -47,6 +48,7 @@ Nel mio caso ho modificato il file come segue:
 
 Infatti la mia mini2440 è collegata ad un LCD da 7 pollici con touch screen.
 
+Altra cosa importante è la lingua! L'immagine che viene creata è in Cinese! Per modificare questa impostazione fare click con il pulsante DX del mouse su *Mini2440* nella finestra "Solution Explorer". Scegliere "Properties", poi aprire con un click dove dice "Configuration Properties" e selezionare "Locale". Qui impostate la lingua che desiderate.
 
   * 1) http://www.microsoft.com/windowsembedded/en-us/products/windowsce/getting-started.mspx
   * 2) http://download.microsoft.com/download/e/0/4/e04de840-8f6b-4fe5-ac3d-d3ad8e4c2443/En_vs_2005_Pro_90_Trial.img 
