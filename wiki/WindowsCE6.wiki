@@ -15,13 +15,13 @@ Una volta scaricato, potete montare questa immagine con DEAMON, c'è la versione
 
 A seguire poi è decisamente *utile* seguire la pagina di Microsoft con i relativi download.
 Una volta terminati i download da Microsoft bisogna scaricare il file con la BSP da questo sito (4).
-All'interno dello ZIP ci sono i nuovi bootloader vivi, per la versione 64M e 128M della mini2440, e il file EXE da eseguire per installare la BSP. I file saranno installati sotto: *C:\WINCE600\OSDesigns\Mini2440* e *C:\WINCE600\PLATFORM\Mini2440*.
+All'interno dello ZIP ci sono i nuovi bootloader vivi, per la versione 64M e 128M della mini2440, e il file EXE da eseguire per installare la BSP. I file saranno installati sotto: `C:\WINCE600\OSDesigns\Mini2440` e `C:\WINCE600\PLATFORM\Mini2440`.
 
 = Aggiornamento bootloader =
 A questo punto dobbiamo aggiornare il booloader vivi nella NOR della board. Per fare questo è bene seguire le indicazioni di questo PDF (5). Un'altro programma importante per questa operazione lo troverete a questo link (6). Si tratta del programma H-JTAG.
 
 = Avviamo la compilazione =
-A questo punto bisogna eseguire il file *C:\WINCE600\OSDesigns\Mini2440\Mini2440.sln*. Se tutto è stato installato correttamente si aprirà il progetto in *Visual Studio*.
+A questo punto bisogna eseguire il file `C:\WINCE600\OSDesigns\Mini2440\Mini2440.sln`. Se tutto è stato installato correttamente si aprirà il progetto in *Visual Studio*.
 Ho avviato la compilazione eseguendo, sotto il menu "Build", "l'item "Build Solution".
 Credo che compili molte cose perché impiega molto tempo. Se tutto andrà bene vi troverete 
 il file *nk.bin* sotto: `C:\WINCE600\OSDesigns\Mini2440\Mini2440\RelDir\Mini2440_ARMV4I_Release`.
