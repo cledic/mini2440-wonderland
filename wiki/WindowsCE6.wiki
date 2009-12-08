@@ -25,6 +25,28 @@ A questo punto bisogna eseguire il file `C:\WINCE600\OSDesigns\Mini2440\Mini2440
 Ho avviato la compilazione eseguendo, sotto il menu "Build", "l'item "Build Solution".
 Credo che compili molte cose perché impiega molto tempo. Se tutto andrà bene vi troverete 
 il file *nk.bin* sotto: `C:\WINCE600\OSDesigns\Mini2440\Mini2440\RelDir\Mini2440_ARMV4I_Release`.
+Prima della compilazione però potrebbe essere necessario personalizzare l'immagine. Il file *options.h* sotto la dir `C:\WINCE600\PLATFORM\Mini2440\SRC\INC\options.h`vi permette di modificare adattare quanto serve alla vostra *mini2440*.
+Nel mio caso ho modificato il file come segue:
+{{{
+// --- by customer
+#define KITL_NONE
+//#define KITL_SERIAL_UART0
+//#define KITL_SERIAL_UART1
+//#define KITL_USBSERIAL
+//#define KITL_ETHERNET
+
+//#define LCD_N35
+//#define LCD_L80
+//#define LCD_T35
+#define LCD_A70
+//#define LCD_VGA1024768
+
+#define TOUCH_SCREEN_WIDTH  1024
+#define TOUCH_SCREEN_HEIGHT 768
+}}}
+
+Infatti la mia mini2440 è collegata ad un LCD da 7 pollici con touch screen.
+
 
   * 1) http://www.microsoft.com/windowsembedded/en-us/products/windowsce/getting-started.mspx
   * 2) http://download.microsoft.com/download/e/0/4/e04de840-8f6b-4fe5-ac3d-d3ad8e4c2443/En_vs_2005_Pro_90_Trial.img 
