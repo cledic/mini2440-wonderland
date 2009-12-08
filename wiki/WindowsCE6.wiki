@@ -53,9 +53,14 @@ Infatti la mia mini2440 è collegata ad un LCD da 7 pollici con touch screen.
 
 Altra cosa importante è la lingua! L'immagine che viene creata è in Cinese! Per modificare questa impostazione fare click con il pulsante DX del mouse su *Mini2440* nella finestra "Solution Explorer". Scegliere "Properties", poi aprire con un click dove dice "Configuration Properties" e selezionare "Locale". Qui impostate la lingua che desiderate.
 
+= Altre info... =
+Per altre info potete fare riferimento a questo link (7).
+Grazie ancora *spinbot*!!!
+
   * 1) http://www.microsoft.com/windowsembedded/en-us/products/windowsce/getting-started.mspx
   * 2) http://download.microsoft.com/download/e/0/4/e04de840-8f6b-4fe5-ac3d-d3ad8e4c2443/En_vs_2005_Pro_90_Trial.img 
   * 3) http://download.html.it/software/vedi/3839/daemon-tools-lite/
   * 4) http://sharebee.com/b6b92441
   * 5) http://www.andahammer.com/assets/Uploads/All2440/Firmware/JTAGingTheNOR.pdf
   * 6) http://www.friendlyarm.net/dl.php?file=hjtag-044.zip
+  * 7) http://www.friendlyarm.net/forum/topic/203?lang=en
