@@ -13,3 +13,8 @@ make CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm mini2440_config
 make CROSS_COMPILE=arm-none-linux-gnueabi- ARCH=arm all
 }}}
   * Il processo di compilazione lascerà nella directory diverse versioni di *uboot*. Quella che serve a noi è la *u-boot-nand512.bin* che ha il padding a 512byte per essere scaricata nella NAND della mini2440.
+
+  * Eventualmente non ci sia il programma che serve a noi, possiamo creare un u-boot con il padding che vogliamo eseguendo questo comando nella directory di u-boot :
+{{{
+dd if=u-boot.bin of=u-boot-nand512.bin bs=512 conv=sync
+}}}
