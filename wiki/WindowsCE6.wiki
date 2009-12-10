@@ -65,3 +65,4 @@ Grazie ancora *spinbot*!!!
   * 5) http://www.andahammer.com/assets/Uploads/All2440/Firmware/JTAGingTheNOR.pdf
   * 6) http://www.friendlyarm.net/dl.php?file=hjtag-044.zip
   * 7) http://www.friendlyarm.net/forum/topic/203?lang=en
+  * 8) http://www.youtube.com/watch?v=KpU156pCYU4
