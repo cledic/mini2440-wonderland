@@ -5,8 +5,7 @@
   * Avviare la mini2440.
 {{{
 t Print the TOC struct of wince
-u Backup NAND Flash to HOST through USB(upload)
-r Restore NAND Flash from HOST through USB
+u Backup NAND Flash to HOST through USB(upload) Restore NAND Flash from HOST through USB
 q Goto shell of vivi
  Enter your selection: q
 }}}
@@ -62,7 +61,7 @@ bootm
 
   * In caso si usi il display da 7 pollici bisogna aggiungere alla riga di comando del kernel l'opzione:
 {{{
-mini2440=1tb
+setenv bootargs console=ttySAC0,115200 noinitrd init=/sbin/init rootdelay=2 root=/dev/mmcblk0p2 mini2440=1tb; bootm
 }}}
 
   * Questo modo di lavorare l'ho copiato dalla BeagleBoard. Può essere comodo se stiamo lavorando con differenti kernel.
