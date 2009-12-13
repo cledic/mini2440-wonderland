@@ -55,6 +55,17 @@ bootm
 }}}
 
   * ...si avvierà il kernel...
+  * Potrebbe essere necessario introdurre un delay, per dar tempo al sistema di caricare l'immagine. A questo punto possiamo scrivere la nuova riga di parametri così:
+{{{
+setenv bootargs root=/dev/mmcblk0 rootfstype=ext3 console=ttySAC0,115200 rootdelay=4
+bootm
+}}}
+
+  * E se abbiamo un LCD da 7 pollici ed abbiamo fretta scriviamo:
+{{{
+setenv bootargs root=/dev/mmcblk0 rootfstype=ext3 console=ttySAC0,115200 rootdelay=4 mini2440=1tb; bootm
+}}}
+
 
 === Immagine di OPIE "precotta" ===
   * Ho scaricato da questo link una immagine [http://www.andahammer.com/Downloads/mini2440_2_6_29_rc5_nand_opie.bin.gz OPIE] già pronta.
