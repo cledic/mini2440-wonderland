@@ -1,0 +1,62 @@
+#summary Immagine GPE su SDCard
+
+= Come installare l'immagine GPE sulla SDCard =
+
+Non è possibile *montare* una immagine *jffs2* direttamente con il comando _mount -o loop_. Ho letto questa cosa dal seguente link:
+http://www.linux-mtd.infradead.org/faq/jffs2.html#L_loopback
+La procedura da seguire quindi è quella di creare un *MTD device* in RAM, copiarci dentro la nostra immagine per poi copiarla dove vogliamo.
+Nel mio caso voglio spostare l'immagine GPE disponibile dal sito: http://www.andahammer.com/Downloads/MoreFlorian/gpe-image-micro2440.jffs2 di cui le *eccellenti* spiegazioni per l'installazione in NAND sono sul sito: http://labs.kernelconcepts.de/Publications/Micro24401/ , nella SDCard e poi farci fare boot alla mini2440.
+
+  * Prima ho installato il pacchetto mtd-tools sul mio Ubuntu 9.10:
+{{{
+sudo apt-get install mtd-tools
+}}}
+  * A seguire ho caricato i seguenti moduli:
+{{{
+sudo modprobe mtd
+sudo modprobe jffs2
+sudo modprobe mtdram total_size=65536
+sudo modprobe mtdchar
+sudo modprobe mtdblock
+}}}
+  * Sotto _/dev_ ho trovato i seguenti device:
+{{{
+mtd0 mtd0ro mtdblock0
+}}}
+  * Ho copiato l'immagine GPE nel device _mtdblock0_ con il seguente comando:
+{{{
+sudo dd if=Download/gpe-image-micro2440.jffs2 of=/dev/mtdblock0
+}}}
+  * E poi ho verificato il device:
+{{{
+cat /proc/mtd
+dev:     size  erasesize  name
+mtd0: 04000000 00020000 "mtdram test device"
+}}}
+  * Ho creato poi la directory dove a seguire monterò l'immagine:
+{{{
+sudo mkdir /mnt/mini2440/
+sudo mount -t jffs2 /dev/mtdblock0 /mnt/mini2440/
+ls /mnt/mini2440
+cd /mnt/mini2440
+}}}
+  * Eseguo la copia di tutta l'immagine sulla SDCard con il comando _cp_:
+{{{
+sudo cp -r * /media/LABEL2/
+}}}
+
+  * Adesso bisogna modificare la variabile _bootargs_ di *uboot*. Per fare questo bisogna riavviare la mini2440 
+  e bloccare *uboot* nella sua fase di avvio. Poi si modifica e si salva la variabile come segue: 
+  _*(nel mio caso faccio boot dalla seconda partizione della SDCard: mmcblk0p2, ed ho un LCD da 7pollici: mini2440=1tb)*_
+{{{
+setenv bootargs console=ttySAC0,115200 noinitrd init=/sbin/init rootdelay=2 root=/dev/mmcblk0p2 mini2440=1tb
+saveenv
+}}}
+
+  * Se tutto è andato bene, al riavvio il kernel monterà il file system da SDCard. Questo ci permetterà di poter aggiornare 
+il sistema operativo e di installare altri pacchetti.
+  * Al riavvio possiamo impartire i seguenti comandi per aggiornare il sistema:
+{{{
+opkg update
+opkg upgrade
+}}}
