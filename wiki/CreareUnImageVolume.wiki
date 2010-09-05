@@ -52,3 +52,8 @@ drwx------ 2 root root 12288 2009-09-02 08:14 lost+found
 }}}
 
 A questo punto è possibile copiare un intero filesystem nella nostra immagine. Per farlo consiglio sempre di far precedere al comando di copia il comando "sudo" per preservare gli attributi dei file e per essere sicuri di copiare tutti i file, anche quelli di sistema.
+Per copiare con sicurezza potete usare questo comando:
+{{{
+sudo dd if=<image_file> of=/dev/sdb1
+}}}
+Dove <image_file> è il nostro file immagine .EXT3 e /dev/sdb1 è la nostra SDCard precedentemente formattata in EXT3.
