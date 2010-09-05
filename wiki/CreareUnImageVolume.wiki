@@ -56,4 +56,4 @@ Per copiare con sicurezza potete usare questo comando:
 {{{
 sudo dd if=<image_file> of=/dev/sdb1
 }}}
-Dove <image_file> è il nostro file immagine .EXT3 e /dev/sdb1 è la nostra SDCard precedentemente formattata in EXT3.
+Dove *image_file* è il nostro file immagine .EXT3 e */dev/sdb1* è la nostra SDCard precedentemente formattata in EXT3.
